@@ -7,3 +7,16 @@ before_install:
 
 script:
   - docker run nfhbar/server-template npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "server-template"
+  env: "ServerTemplate-env"
+  bucket_name: "elasticbeanstalk-us-east-2-259280065187"
+  bucket_path: "server-template"
+  on:
+    branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+      secure: "$AWS_ACCESS_SECRET"
